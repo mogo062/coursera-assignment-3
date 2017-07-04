@@ -10,18 +10,18 @@
     <script src="js/app.js" charset="utf-8"></script>
   </head>
 <body>
-   <div class="container">
+   <div class="container" ng-controller="NarrowItDownController as nArrowCtrl">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
     <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control">
+      <input type="text" placeholder="search term" ng-model="nArrowCtrl.searchTerm" class="form-control">
     </div>
     <div class="form-group narrow-button">
-      <button class="btn btn-primary">Narrow It Down For Me!</button>
+      <button class="btn btn-primary" ng-click="nArrowCtrl.filterItemsBySearchTerm();">Narrow It Down For Me!</button>
     </div>
 
     <!-- found-items should be implemented as a component -->
-    <found-items found-items="...." on-remove="...."></found-items>
+    <found-items found-items="nArrowCtrl.foundItems" on-remove="nArrowCtrl.dontWantThisOne(index);"></found-items>
   </div>
 
 </body>
