@@ -6,11 +6,57 @@
   app.service('MenuSearchService',MenuSearchService);
   app.constant('ApiBasePath','https://davids-restaurant.herokuapp.com');
   app.directive('foundItems',foundItemsDirective);
+  //app.directive('mgLoader',mgLoaderDirective);
 
+
+/*
+  function mgLoaderDirective(){
+    var ddo = {
+      restrict : 'E',
+      templateUrl : 'loader/itemsloaderindicator.template.html',
+      scope : {
+        mgItems : '<'
+      },
+      controller : mgLoaderDirectiveController,
+      controllerAs : 'mgLoader',
+      bindToController: true,
+      link : mgLoaderDirectivelink
+
+    };
+    return ddo;
+  };
+  function mgLoaderDirectivelink (scope, element, attrs, controller){
+    console.log("Link scope is: ", scope);
+    console.log("Controller instance is: ", controller);
+    console.log("Element is: ", element);
+    scope.$watch('mgLoader.mgItems', function (newValue, oldValue) {
+      console.log("Old value: ", oldValue);
+      console.log("New value: ", newValue);
+      if(newValue != oldValue){
+        activateLoader();
+      }else{
+        disableLoader();
+      }
+    });
+
+    function activateLoader(){
+      var loaderElem = element.find("div.loader");
+      loaderElem.css('display', 'block');
+    };
+    function disableLoader(){
+      var loaderElem = element.find("div.loader");
+      loaderElem.css('display', 'none');
+    };
+  };
+  function mgLoaderDirectiveController(){
+    var mgLoader = this;
+
+  };
+*/
   function foundItemsDirective(){
     var ddo = {
       restrict : 'E',
-      templateUrl : 'directives/foundItems/foundItems.html',
+      templateUrl : 'foundItems.html',
       scope : {
         foundItems : '<',
         mgLoader : '<',
@@ -19,14 +65,19 @@
       controller : foundItemsDirectiveController,
       controllerAs : 'fdItems',
       bindToController: true,
-      link : foundItemsDirectivelink
-    //  transclude : true
+      link : foundItemsDirectivelink,
+      transclude : true
     };
     return ddo;
   };
 
   function foundItemsDirectivelink(scope, element, attrs, controller){
+    console.log("Link scope is: ", scope);
+    console.log("Controller instance is: ", controller);
+    console.log("Element is: ", element);
     scope.$watch('fdItems.mgLoader', function (newValue, oldValue) {
+      console.log("Old value: ", oldValue);
+      console.log("New value: ", newValue);
       if(newValue){
         activateLoader();
       }else{
@@ -35,6 +86,7 @@
     });
     function activateLoader(){
       var loaderElem = element.find("div.loader");
+      console.log('loaderElem : ',loaderElem);
       loaderElem.css('display', 'block');
     };
     function disableLoader(){
@@ -46,6 +98,8 @@
   function foundItemsDirectiveController(){
     var fdItems = this;
     fdItems.mgLoader = false;
+  //  console.log("fdItems directive :",fdItems.foundItems);
+
   };
 
   NarrowItDownController.$inject=['MenuSearchService'];
@@ -72,6 +126,7 @@
     var service = this;
     service.getMatchedMenuItems = function(searchTerm){
       return  service.getAllMenuItems().then(function(response){
+        //  console.log('foundItem',response.data.menu_items);
         var menuItems = response.data.menu_items;
         var foundItems = [];
         angular.forEach(menuItems, function(item,index) {
