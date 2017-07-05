@@ -9,54 +9,69 @@
 
   function foundItemsDirective(){
     var ddo = {
-      restrict: 'E',
-      templateUrl : 'foundItems.html',
+      restrict : 'E',
+      templateUrl : 'directives/foundItems/foundItems.html',
       scope : {
         foundItems : '<',
+        mgLoader : '<',
         onRemove : '&'
       },
       controller : foundItemsDirectiveController,
       controllerAs : 'fdItems',
-      bindToController: true
-
+      bindToController: true,
+      link : foundItemsDirectivelink
+    //  transclude : true
     };
     return ddo;
   };
 
-  function foundItemsDirectiveController(){
-    var fdItems = this;
-    //console.log("fdItems :",fdItems.foundItems);
-
+  function foundItemsDirectivelink(scope, element, attrs, controller){
+    scope.$watch('fdItems.mgLoader', function (newValue, oldValue) {
+      if(newValue){
+        activateLoader();
+      }else{
+        disableLoader()
+      }
+    });
+    function activateLoader(){
+      var loaderElem = element.find("div.loader");
+      loaderElem.css('display', 'block');
+    };
+    function disableLoader(){
+      var loaderElem = element.find("div.loader");
+      loaderElem.css('display', 'none');
+    };
   };
 
+  function foundItemsDirectiveController(){
+    var fdItems = this;
+    fdItems.mgLoader = false;
+  };
 
   NarrowItDownController.$inject=['MenuSearchService'];
   function NarrowItDownController(MenuSearchService){
     var  nArrowCtrl = this;
     nArrowCtrl.searchTerm='';
+  //  nArrowCtrl.mgLoader = true;
 
     nArrowCtrl.filterItemsBySearchTerm = function(){
-      //console.log('searchTerm : ',nArrowCtrl.searchTerm);
+      nArrowCtrl.mgLoader = true;
       MenuSearchService.getMatchedMenuItems(nArrowCtrl.searchTerm).then(function(response){
         nArrowCtrl.foundItems = response;
+        nArrowCtrl.mgLoader = false;
       });
     };
     nArrowCtrl.dontWantThisOne = function(index){
-      console.log("item : ",index);
       nArrowCtrl.foundItems.splice(index,1);
     };
 
-
-
   };
-
 
   MenuSearchService.$inject=['$http', 'ApiBasePath'];
   function MenuSearchService($http,ApiBasePath){
     var service = this;
     service.getMatchedMenuItems = function(searchTerm){
       return  service.getAllMenuItems().then(function(response){
-        //  console.log('foundItem',response.data.menu_items);
         var menuItems = response.data.menu_items;
         var foundItems = [];
         angular.forEach(menuItems, function(item,index) {

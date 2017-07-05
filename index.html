@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
-
+    <script src="js/jquery-3.2.1.min.js" charset="utf-8"></script>
     <script src="js/angular.min.js" charset="utf-8"></script>
     <script src="js/app.js" charset="utf-8"></script>
   </head>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- found-items should be implemented as a component -->
-    <found-items found-items="nArrowCtrl.foundItems" on-remove="nArrowCtrl.dontWantThisOne(index);"></found-items>
+    <found-items found-items="nArrowCtrl.foundItems" on-remove="nArrowCtrl.dontWantThisOne(index);" mg-loader="nArrowCtrl.mgLoader"></found-items>
   </div>
 
 </body>

@@ -1,0 +1,48 @@
+
+
+<div class="row">
+  <div class="col-md-12 center">
+    <div class="loader"></div>
+  </div>
+  <div class="col-md-12"  ng-if="fdItems.foundItems">
+    <div class="col-md-12">
+      <h3>Total Item found : {{fdItems.foundItems.length}}</h3>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>short name</th>
+              <th>full name</th>
+              <th>description</th>
+              <th>price small</th>
+              <th>price large</th>
+              <th>small portion name</th>
+              <th>large portion name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in fdItems.foundItems">
+              <td>{{item.id}}</td>
+              <td>{{item.short_name}}</td>
+              <td class="fixedWdith-25">{{item.name}}</td>
+              <td class="fixedWdith-30">{{item.description}}</td>
+              <td>{{item.price_small}}</td>
+              <td>{{item.price_large}}</td>
+              <td>{{item.small_portion_name}}</td>
+              <td>{{item.large_portion_name}}</td>
+              <td>
+                  <button class="btn btn-default" ng-click="fdItems.onRemove({index: $index});"><span class="glyphicon glyphicon-remove"></span></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--mg-loader mg-items="fdItems.foundItems.length" /-->
+    </div>
+  </div>
+
+</div>

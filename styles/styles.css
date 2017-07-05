@@ -50,3 +50,33 @@ input[type="text"] {
     transform: rotate(360deg);
   }
 }
+td.fixedWdith-10 {
+  width: 10%;
+}
+td.fixedWdith-15 {
+  width: 15%;
+}
+td.fixedWdith-20 {
+  width: 20%;
+}
+td.fixedWdith-25 {
+  width: 25%;
+}
+td.fixedWdith-30 {
+  width: 30%;
+}
+td.fixedWdith-35 {
+  width: 35%;
+}
+td.fixedWdith-40 {
+  width: 40%;
+}
+td.fixedWdith-45 {
+  width: 45%;
+}
+td.fixedWdith-50 {
+  width: 50%;
+}
+div.center{
+  margin-left: 50%;
+}
