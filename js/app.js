@@ -13,7 +13,7 @@
   function mgLoaderDirective(){
     var ddo = {
       restrict : 'E',
-      templateUrl : 'loader/itemsloaderindicator.template.html',
+      templateUrl : 'directives/loader/itemsloaderindicator.template.html',
       scope : {
         mgItems : '<'
       },
@@ -56,7 +56,7 @@
   function foundItemsDirective(){
     var ddo = {
       restrict : 'E',
-      templateUrl : 'foundItems.html',
+      templateUrl : 'directives/foundItems/foundItems.html',
       scope : {
         foundItems : '<',
         mgLoader : '<',
