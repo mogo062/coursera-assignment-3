@@ -23,12 +23,7 @@
     return ddo;
   };
   function mgLoaderDirectivelink (scope, element, attrs, controller){
-    console.log("Link scope is: ", scope);
-    console.log("Controller instance is: ", controller);
-    console.log("Element is: ", element);
     scope.$watch('mgLoader.mgLoader', function (newValue, oldValue) {
-      console.log("Old value: ", oldValue);
-      console.log("New value: ", newValue);
       if(newValue){
         activateLoader();
       }else{
