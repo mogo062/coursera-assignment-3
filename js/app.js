@@ -51,7 +51,7 @@
       templateUrl : 'directives/foundItems/foundItems.html',
       scope : {
         foundItems : '<',
-      //  mgLoader : '<',
+        tbHeader : '<',
         onRemove : '&'
       },
       controller : foundItemsDirectiveController,
@@ -69,14 +69,26 @@
 
   function foundItemsDirectiveController(){
     var fdItems = this;
-
   };
 
   NarrowItDownController.$inject=['MenuSearchService'];
   function NarrowItDownController(MenuSearchService){
     var  nArrowCtrl = this;
     nArrowCtrl.searchTerm='';
-
+    nArrowCtrl.tbheader=[
+      {
+        name : 'full name',
+        class : 'fixedWdith-35'
+      },{
+        name : 'description',
+        class : 'fixedWdith-35'
+      },{
+        name : 'short name'
+      },{
+        
+      }
+    ];
+    //console.log("tbHeader : ",nArrowCtrl.tbheader);
     nArrowCtrl.filterItemsBySearchTerm = function(){
       nArrowCtrl.mgLoader = true;
       MenuSearchService.getMatchedMenuItems(nArrowCtrl.searchTerm).then(function(response){
