@@ -103,8 +103,8 @@
             if(item.description.indexOf(searchTerm) != -1){
               foundItems.push(item);
             }*/
-           var searchTermRegex = new RegExp(searchTerm);
-           if(searchTermRegex.test(item.description)){
+           var searchTermRegex = new RegExp(searchTerm.toUpperCase());
+           if(searchTermRegex.test(item.description.toUpperCase())){
                 foundItems.push(item);
             }
           });
