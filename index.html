@@ -21,7 +21,9 @@
     </div>
 
     <!-- found-items should be implemented as a component -->
-    <found-items found-items="nArrowCtrl.foundItems" on-remove="nArrowCtrl.dontWantThisOne(index);" mg-loader="nArrowCtrl.mgLoader"></found-items>
+    <found-items found-items="nArrowCtrl.foundItems" on-remove="nArrowCtrl.dontWantThisOne(index);">
+        <mg-loader mg-loader="nArrowCtrl.mgLoader" />
+    </found-items>
   </div>
 
 </body>

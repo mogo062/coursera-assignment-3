@@ -6,22 +6,19 @@
   app.service('MenuSearchService',MenuSearchService);
   app.constant('ApiBasePath','https://davids-restaurant.herokuapp.com');
   app.directive('foundItems',foundItemsDirective);
-  //app.directive('mgLoader',mgLoaderDirective);
+  app.directive('mgLoader',mgLoaderDirective);
 
-
-/*
   function mgLoaderDirective(){
     var ddo = {
       restrict : 'E',
       templateUrl : 'directives/loader/itemsloaderindicator.template.html',
       scope : {
-        mgItems : '<'
+        mgLoader : '<'
       },
       controller : mgLoaderDirectiveController,
       controllerAs : 'mgLoader',
       bindToController: true,
       link : mgLoaderDirectivelink
-
     };
     return ddo;
   };
@@ -29,10 +26,10 @@
     console.log("Link scope is: ", scope);
     console.log("Controller instance is: ", controller);
     console.log("Element is: ", element);
-    scope.$watch('mgLoader.mgItems', function (newValue, oldValue) {
+    scope.$watch('mgLoader.mgLoader', function (newValue, oldValue) {
       console.log("Old value: ", oldValue);
       console.log("New value: ", newValue);
-      if(newValue != oldValue){
+      if(newValue){
         activateLoader();
       }else{
         disableLoader();
@@ -50,16 +47,16 @@
   };
   function mgLoaderDirectiveController(){
     var mgLoader = this;
-
+    mgLoader.mgLoader = false;
   };
-*/
+
   function foundItemsDirective(){
     var ddo = {
       restrict : 'E',
       templateUrl : 'directives/foundItems/foundItems.html',
       scope : {
         foundItems : '<',
-        mgLoader : '<',
+      //  mgLoader : '<',
         onRemove : '&'
       },
       controller : foundItemsDirectiveController,
@@ -72,33 +69,11 @@
   };
 
   function foundItemsDirectivelink(scope, element, attrs, controller){
-    console.log("Link scope is: ", scope);
-    console.log("Controller instance is: ", controller);
-    console.log("Element is: ", element);
-    scope.$watch('fdItems.mgLoader', function (newValue, oldValue) {
-      console.log("Old value: ", oldValue);
-      console.log("New value: ", newValue);
-      if(newValue){
-        activateLoader();
-      }else{
-        disableLoader()
-      }
-    });
-    function activateLoader(){
-      var loaderElem = element.find("div.loader");
-      console.log('loaderElem : ',loaderElem);
-      loaderElem.css('display', 'block');
-    };
-    function disableLoader(){
-      var loaderElem = element.find("div.loader");
-      loaderElem.css('display', 'none');
-    };
+
   };
 
   function foundItemsDirectiveController(){
     var fdItems = this;
-    fdItems.mgLoader = false;
-  //  console.log("fdItems directive :",fdItems.foundItems);
 
   };
 
@@ -106,7 +81,6 @@
   function NarrowItDownController(MenuSearchService){
     var  nArrowCtrl = this;
     nArrowCtrl.searchTerm='';
-  //  nArrowCtrl.mgLoader = true;
 
     nArrowCtrl.filterItemsBySearchTerm = function(){
       nArrowCtrl.mgLoader = true;
