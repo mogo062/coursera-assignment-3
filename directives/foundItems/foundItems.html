@@ -1,9 +1,7 @@
 
 
 <div class="row">
-  <div class="col-md-12 center" ng-transclude>
-    <!--div class="loader"></div-->
-  </div>
+  <div class="col-md-12 center" ng-transclude>  </div>
   <div class="col-md-12"  ng-if="fdItems.foundItems">
     <div class="col-md-12">
       <h3>Total Item found : {{fdItems.foundItems.length}}</h3>
@@ -25,7 +23,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="item in fdItems.foundItems">
+            <tr ng-if="fdItems.foundItems.length === 0">
+              <td colspan="9">
+                <div class="center">
+                  no data found !
+                </div>
+              </td>
+            </tr>
+            <tr ng-repeat="item in fdItems.foundItems" ng-if="fdItems.foundItems.length > 0">
               <td>{{item.id}}</td>
               <td>{{item.short_name}}</td>
               <td class="fixedWdith-25">{{item.name}}</td>
@@ -41,8 +46,6 @@
           </tbody>
         </table>
       </div>
-      <!--mg-loader mg-items="fdItems.foundItems.length" /-->
     </div>
   </div>
-
 </div>
