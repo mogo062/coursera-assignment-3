@@ -69,6 +69,10 @@
 
   function foundItemsDirectiveController(){
     var fdItems = this;
+    fdItems.remove = function(index){
+        fdItems.onRemove({index: index});
+    };
+
   };
 
   NarrowItDownController.$inject=['MenuSearchService'];
@@ -85,13 +89,18 @@
       },{
         name : 'short name'
       },{
-        
+
       }
     ];
     //console.log("tbHeader : ",nArrowCtrl.tbheader);
     nArrowCtrl.filterItemsBySearchTerm = function(){
       nArrowCtrl.mgLoader = true;
       MenuSearchService.getMatchedMenuItems(nArrowCtrl.searchTerm).then(function(response){
+        if(nArrowCtrl.searchTerm.trim() === ""){
+          nArrowCtrl.foundItems = [];
+          nArrowCtrl.mgLoader = false;
+          return;
+        }
         nArrowCtrl.foundItems = response;
         nArrowCtrl.mgLoader = false;
       });
@@ -105,9 +114,9 @@
   MenuSearchService.$inject=['$http', 'ApiBasePath'];
   function MenuSearchService($http,ApiBasePath){
     var service = this;
+
     service.getMatchedMenuItems = function(searchTerm){
       return  service.getAllMenuItems().then(function(response){
-        //  console.log('foundItem',response.data.menu_items);
         var menuItems = response.data.menu_items;
         var foundItems = [];
         angular.forEach(menuItems, function(item,index) {
